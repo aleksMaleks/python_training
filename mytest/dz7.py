@@ -23,7 +23,7 @@ driver.find_element_by_name("login").click()
 
 linksCount = len(driver.find_elements_by_css_selector("#app- a"))
 
-for 1 in range i:
+# for 1 in range i:
 
 
 
