@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pytest
 from model.group import Group
-from fixture.application import Application
 
 # def is_alert_present(wd): # пример взят из урока
 #     try:
@@ -11,12 +9,6 @@ from fixture.application import Application
 #     except:
 #         return False
 
-
-@pytest.fixture
-def app(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 def test_add_group(app):
     app.session.login(username="admin", password="secret")
