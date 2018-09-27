@@ -14,10 +14,10 @@ class Application:
     def login(self, username, password):
         wd = self.wd
         self.open_home_page()
-        #        wd.find_element_by_name("user").click() # это не обязательно делать но в уроке оно есть
+#        wd.find_element_by_name("user").click() # это не обязательно делать но в уроке оно есть
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
-        #        wd.find_element_by_name("pass").click() # это не обязательно делать но в уроке оно есть
+#        wd.find_element_by_name("pass").click() # это не обязательно делать но в уроке оно есть
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
@@ -32,14 +32,13 @@ class Application:
         # init group creation
         wd.find_element_by_name("new").click()
         # fill group form
-        wd.find_element_by_name("group_name").click()
-        #        wd.find_element_by_name("group_name").click()
+#        wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
         wd.find_element_by_name("group_name").send_keys(group.name)
-        wd.find_element_by_name("group_header").click()
+#        wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
         wd.find_element_by_name("group_header").send_keys(group.header)
-        wd.find_element_by_name("group_footer").click()
+#        wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
         wd.find_element_by_name("group_footer").send_keys(group.footer)
         # submit group creation
