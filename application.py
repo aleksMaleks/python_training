@@ -9,7 +9,7 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/")
+        wd.get("http://localhost/addressbook/index.php")
 
     def login(self, username, password):
         wd = self.wd
@@ -46,9 +46,31 @@ class Application:
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
 
+    def create_contact(self, group):
+        wd = self.wd
+        # init contact creation
+        wd.find_element_by_link_text("add new").click()
+        # fill contact form
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys(group.name)
+        wd.find_element_by_name("middlename").click()
+        wd.find_element_by_name("middlename").clear()
+        wd.find_element_by_name("middlename").send_keys(group.header)
+        wd.find_element_by_name("lastname").click()
+        wd.find_element_by_name("lastname").clear()
+        wd.find_element_by_name("lastname").send_keys(group.footer)
+        # submit contcat creation
+        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.return_to_home_page()
+
     def return_to_groups_page(self):
         wd = self.wd
         wd.find_element_by_link_text("group page").click()
+
+    def return_to_home_page(self):
+        wd = self.wd
+        wd.find_element_by_link_text("home page").click()
 
     def logout(self):
         wd = self.wd
