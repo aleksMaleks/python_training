@@ -7,6 +7,7 @@ class ContactHelper:
 
     def create(self, group):
         wd = self.app.wd
+#        self.return_to_home()
         # init contact creation
         wd.find_element_by_link_text("add new").click()
         # fill contact form
@@ -25,8 +26,9 @@ class ContactHelper:
 
     def modification_first_contact(self, group):
         wd = self.app.wd
+#        self.return_to_home()
         # init contact modification
-        wd.find_element_by_xpath("(//img[@alt='Edit'])[1]").click() # какой тут локатор???
+        wd.find_element_by_xpath("(//img[@alt='Edit'])[1]").click() # еще можно css=img[alt="Edit"]
         # fill contact form
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(group.name)
@@ -41,6 +43,7 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
+#        self.return_to_home()
         #  select first contact
         wd.find_element_by_name("selected[]").click()
         # submit deletion
@@ -51,4 +54,9 @@ class ContactHelper:
     def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
+
+    # def return_to_home(self):
+    #     wd = self.app.wd
+    #     wd.find_element_by_css_selector("a[href='./']").click()
+
 

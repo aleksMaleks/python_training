@@ -4,14 +4,10 @@ from model.group import Group
 
 
 def test_add_contact(app):
-    app.session.login(username="admin", password="secret")
     app.contact.create(Group(name="first1", header="middle1", footer="last1"))
-    app.session.logout()
 
 def test_add_empty_contact(app):
-    app.session.login(username="admin", password="secret")
     app.contact.create(Group(name="", header="", footer=""))
-    app.session.logout()
 
 # def is_element_present(self, how, what):
 #     try: self.wd.find_element(by=how, value=what)
