@@ -9,7 +9,7 @@ class Application:
 
     def __init__(self):
         self.wd = webdriver.Chrome()
-#        self.wd.implicitly_wait(1)
+#        self.wd.implicitly_wait(1) # задержка нужна если элементы сьраницы подгружаются динамически (не сразу)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)

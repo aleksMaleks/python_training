@@ -32,7 +32,7 @@ class GroupHelper:
         # submit group creation
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
-        self.return_to_home()
+#        self.return_to_home()
 
     def select_first_group(self):
         wd = self.app.wd
@@ -45,7 +45,7 @@ class GroupHelper:
         # submit deletion
         wd.find_element_by_name("delete").click()
         self.return_to_groups_page()
-        self.return_to_home()
+#        self.return_to_home()
 
     def modify_first_group(self, new_group_data):
         wd = self.app.wd
@@ -58,7 +58,7 @@ class GroupHelper:
         # submit modification
         wd.find_element_by_name("update").click()
         self.return_to_groups_page()
-        self.return_to_home()
+#        self.return_to_home()
 
     def modification_first_group(self, new_group_data): # my test!!!
         wd = self.app.wd
@@ -71,15 +71,15 @@ class GroupHelper:
         # submit group creation
         wd.find_element_by_name("update").click()
         self.return_to_groups_page()
-        self.return_to_home()
+#        self.return_to_home()
 
-    def return_to_groups_page(self):
+    def return_to_groups_page(self): # этот переход проверять не нужно, так как он должен всегда выполняться иначе сайт работает не верно
         wd = self.app.wd
         wd.find_element_by_link_text("group page").click()
 
-    def return_to_home(self):
-        wd = self.app.wd
-        wd.find_element_by_css_selector("a[href='./']").click()
+    # def return_to_home(self): # перенес эту проверку в contact.py
+    #     wd = self.app.wd
+    #     wd.find_element_by_css_selector("a[href='./']").click()
 
     def count(self):
         wd = self.app.wd

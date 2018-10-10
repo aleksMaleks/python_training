@@ -20,7 +20,7 @@ class ContactHelper:
 
     def create(self, contact_data):
         wd = self.app.wd
-        #        self.return_to_home()
+        self.return_to_home()
         # init contact creation
         wd.find_element_by_link_text("add new").click()
         self.fill_contact_form(contact_data)
@@ -30,7 +30,7 @@ class ContactHelper:
 
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
-#        self.return_to_home()
+        self.return_to_home()
         # init contact modification
         wd.find_element_by_xpath("(//img[@alt='Edit'])[1]").click() # еще можно css=img[alt="Edit"]
         # fill contact form
@@ -41,7 +41,7 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-#        self.return_to_home()
+        self.return_to_home()
         #  select first contact
         wd.find_element_by_name("selected[]").click()
         # submit deletion
@@ -49,13 +49,15 @@ class ContactHelper:
         wd.switch_to_alert().accept()
 #        wd.get("http://localhost/addressbook/index.php")
 
-    def return_to_home_page(self):
+    def return_to_home_page(self): # этот переход проверять не нужно, так как он должен всегда выполняться иначе сайт работает не верно
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
 
     def return_to_home(self):
         wd = self.app.wd
-        wd.find_element_by_css_selector("a[href='./']").click()
+        if not wd.current_url.endswith("/"):
+            wd.find_element_by_link_text("home").click() # можно так
+#            wd.find_element_by_css_selector("a[href='./']").click() # а можно и так
 
 
     def count(self):
