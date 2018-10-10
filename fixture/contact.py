@@ -5,38 +5,36 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
-    def create(self, group):
+    def change_field_value(self, field_name, text):
         wd = self.app.wd
-#        self.return_to_home()
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
+
+    def fill_contact_form(self, contact):
+        wd = self.app.wd
+        self.change_field_value("firstname", contact.name)
+        self.change_field_value("middlename", contact.header)
+        self.change_field_value("lastname", contact.footer)
+
+    def create(self, contact_data):
+        wd = self.app.wd
+        #        self.return_to_home()
         # init contact creation
         wd.find_element_by_link_text("add new").click()
-        # fill contact form
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(group.name)
-        wd.find_element_by_name("middlename").click()
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(group.header)
-        wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(group.footer)
+        self.fill_contact_form(contact_data)
         # submit contcat creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_to_home_page()
 
-    def modification_first_contact(self, group):
+    def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
 #        self.return_to_home()
         # init contact modification
         wd.find_element_by_xpath("(//img[@alt='Edit'])[1]").click() # еще можно css=img[alt="Edit"]
         # fill contact form
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(group.name)
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(group.header)
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(group.footer)
-        # submit contcat modification
+        self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.return_to_home_page()
 
