@@ -1,13 +1,21 @@
 # -*- coding: utf-8 -*-
+from model.contact import Contact
 
-from model.group import Group
 
 
 def test_add_contact(app):
-    app.contact.create(Group(name="first1", header="middle1", footer="last1"))
+    old_contacts = app.contact.get_contact_list()
+    app.contact.create(Contact(name="first1", header="middle1", footer="last1"))
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) + 1 == len(new_contacts)
+
 
 def test_add_empty_contact(app):
-    app.contact.create(Group(name="", header="", footer=""))
+    old_contacts = app.contact.get_contact_list()
+    app.contact.create(Contact(name="", header="", footer=""))
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) + 1 == len(new_contacts)
+
 
 # def is_element_present(self, how, what):
 #     try: self.wd.find_element(by=how, value=what)

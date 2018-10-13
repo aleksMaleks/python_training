@@ -1,3 +1,4 @@
+from model.contact import Contact
 
 
 class ContactHelper:
@@ -59,12 +60,17 @@ class ContactHelper:
             wd.find_element_by_link_text("home").click() # можно так
 #            wd.find_element_by_css_selector("a[href='./']").click() # а можно и так
 
-
     def count(self):
         wd = self.app.wd
         self.return_to_home()
         return len(wd.find_elements_by_name("selected[]"))
 
-
-
-
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.return_to_home()
+        contacts = []
+        for element in wd.find_elements_by_css_selector("tr[name=entry"):
+            text = element.text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(name=text, id=id))
+        return contacts
