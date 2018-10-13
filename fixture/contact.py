@@ -65,7 +65,7 @@ class ContactHelper:
 
     def return_to_home(self):
         wd = self.app.wd
-        if not wd.current_url.endswith("/"):
+        if not wd.current_url.endswith("/addressbook/"):
             wd.find_element_by_link_text("home").click() # можно так
 #            wd.find_element_by_css_selector("a[href='./']").click() # а можно и так
 
