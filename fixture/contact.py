@@ -28,6 +28,7 @@ class ContactHelper:
         # submit contcat creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_to_home_page()
+        self.contact_cashe = None
 
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
@@ -38,6 +39,7 @@ class ContactHelper:
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.return_to_home_page()
+        self.contact_cashe = None
 
 
     def delete_first_contact(self):
@@ -49,6 +51,7 @@ class ContactHelper:
         wd.find_element_by_css_selector("input[value=Delete]").click()
         wd.switch_to_alert().accept()
 #        wd.get("http://localhost/addressbook/index.php")
+        self.contact_cashe = None
 
     def return_to_home_page(self): # этот переход проверять не нужно, так как он должен всегда выполняться иначе сайт работает не верно
         wd = self.app.wd
@@ -65,17 +68,17 @@ class ContactHelper:
         self.return_to_home()
         return len(wd.find_elements_by_name("selected[]"))
 
+    contact_cashe = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        self.return_to_home()
-        contacts = []
-        for element in wd.find_elements_by_name("entry"):
-            cells = element.find_elements_by_tag_name("td")
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(lastname= cells[1].text, firstname= cells[2].text, id = id))
-        return contacts
-
-
-
+        if self.contact_cashe is None:
+            wd = self.app.wd
+            self.return_to_home()
+            self.contact_cashe = []
+            for element in wd.find_elements_by_name("entry"):
+                cells = element.find_elements_by_tag_name("td")
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contact_cashe.append(Contact(lastname= cells[1].text, firstname= cells[2].text, id = id))
+        return list(self.contact_cashe)
 
 
