@@ -4,7 +4,7 @@ from model.contact import Contact
 
 def test_delete_first_contact(app):
     if app.contact.count() == 0:
-        app.contact.create(Contact(name="test7777"))
+        app.contact.create(Contact(firstname="firstname17777"))
     old_contacts = app.contact.get_contact_list()
     app.contact.delete_first_contact()
     new_contacts = app.contact.get_contact_list()

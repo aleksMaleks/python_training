@@ -15,9 +15,9 @@ class ContactHelper:
 
     def fill_contact_form(self, contact):
         wd = self.app.wd
-        self.change_field_value("firstname", contact.name)
-        self.change_field_value("middlename", contact.header)
-        self.change_field_value("lastname", contact.footer)
+        self.change_field_value("firstname", contact.firstname)
+        self.change_field_value("middlename", contact.middlename)
+        self.change_field_value("lastname", contact.lastname)
 
     def create(self, contact_data):
         wd = self.app.wd
@@ -69,8 +69,13 @@ class ContactHelper:
         wd = self.app.wd
         self.return_to_home()
         contacts = []
-        for element in wd.find_elements_by_css_selector("tr[name=entry"):
-            text = element.text
+        for element in wd.find_elements_by_name("entry"):
+            cells = element.find_elements_by_tag_name("td")
             id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(name=text, id=id))
+            contacts.append(Contact(lastname= cells[1].text, firstname= cells[2].text, id = id))
         return contacts
+
+
+
+
+
