@@ -76,19 +76,19 @@ class GroupHelper:
         self.group_cashe = None
 
 
-    def modification_first_group(self, new_group_data): # my test!!!
-        wd = self.app.wd
-        self.open_groups_page()
-        self.select_first_group()
-        # open modification form
-        wd.find_element_by_name("edit").click()
-        # fill group form
-        self.fill_group_form(new_group_data)
-        # submit group creation
-        wd.find_element_by_name("update").click()
-        self.return_to_groups_page()
-#        self.return_to_home()
-        self.group_cashe = None
+#     def modification_first_group(self, new_group_data): # my test!!!
+#         wd = self.app.wd
+#         self.open_groups_page()
+#         self.select_first_group()
+#         # open modification form
+#         wd.find_element_by_name("edit").click()
+#         # fill group form
+#         self.fill_group_form(new_group_data)
+#         # submit group creation
+#         wd.find_element_by_name("update").click()
+#         self.return_to_groups_page()
+# #        self.return_to_home()
+#         self.group_cashe = None
 
     def return_to_groups_page(self): # этот переход проверять не нужно, так как он должен всегда выполняться иначе сайт работает не верно
         wd = self.app.wd

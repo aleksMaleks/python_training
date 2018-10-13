@@ -1,7 +1,7 @@
 from model.contact import Contact
 
 
-
+#@pytest.mark.skip(reason="no way of currently testing this") # для отключение теста
 def test_modify_contact_name(app):
     if app.contact.count() == 0:
         app.contact.create(Contact(firstname="test7777"))
