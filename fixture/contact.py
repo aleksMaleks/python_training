@@ -66,7 +66,7 @@ class ContactHelper:
 
     def return_to_home(self):
         wd = self.app.wd
-        if not wd.current_url.endswith("/addressbook/"):
+        if not wd.current_url.endswith("/addressbook/"): # and wd.find_element_by_css_selector("input[type=\"button\"][value=\"Send e-Mail\"]")):
             wd.find_element_by_link_text("home").click() # можно так
 #            wd.find_element_by_css_selector("a[href='./']").click() # а можно и так
 
@@ -92,12 +92,15 @@ class ContactHelper:
                 cells = element.find_elements_by_tag_name("td")
                 lastname = cells[1].text
                 firstname = cells[2].text
-                id = cells[0].find_element_by_tag_name("input").get_attribute("value")
+                address = cells[3].text
+                all_emails = cells[4].text
                 all_phones = cells[5].text
+                id = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 #self.contact_cashe.append(Contact(lastname=lastname, firstname=firstname, id=id))
 
-                self.contact_cashe.append(Contact(lastname=lastname, firstname=firstname, id=id,
-                                                  all_phones_from_home_page=all_phones))
+                self.contact_cashe.append(Contact(lastname=lastname, firstname=firstname, address=address, id=id,
+                                                  all_phones_from_home_page=all_phones,
+                                                  all_emails_from_home_page=all_emails))
         return list(self.contact_cashe)
 
     def open_contact_to_edit_by_index(self, index):
@@ -124,9 +127,15 @@ class ContactHelper:
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        email = wd.find_element_by_name('email').get_attribute("value")
+        email2 = wd.find_element_by_name('email2').get_attribute("value")
+        email3 = wd.find_element_by_name('email3').get_attribute("value")
+        address = wd.find_element_by_name("address").text
         return Contact(firstname=firstname, lastname=lastname, id=id,
                        homephone=homephone, mobilephone=mobilephone,
-                       workphone=workphone, secondaryphone=secondaryphone)
+                       workphone=workphone, secondaryphone=secondaryphone,
+                       email=email, email2=email2, email3=email3, address=address)
+
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
@@ -136,6 +145,7 @@ class ContactHelper:
         workphone = re.search("W: (.*)", text).group(1)
         mobilephone = re.search("M: (.*)", text).group(1)
         secondaryphone = re.search("P: (.*)", text).group(1)
+        all_emails = wd.find_elements_by_css_selector('a[href*="mailto:email"]')
         return Contact(homephone=homephone, mobilephone=mobilephone,
-                       workphone=workphone, secondaryphone=secondaryphone)
+                       workphone=workphone, secondaryphone=secondaryphone, all_emails_from_view_page=all_emails)
 
