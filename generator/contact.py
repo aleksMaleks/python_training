@@ -1,4 +1,4 @@
-from model.group import Group
+from model.contact import Contact
 import random
 import string
 import os
@@ -8,13 +8,13 @@ import sys
 
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of contacts", "file"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
 
 n = 2
-f = "data/groups.json"
+f = "data/contacts.json"
 
 for o, a in opts:
     if o == "-n":
@@ -24,11 +24,12 @@ for o, a in opts:
 
 
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + " " # *10 убрал генерацию лишних пробелов так как с ними некоторые тесты падают, а еще не создается группа со знаком ' (string.punctuation + )
+    symbols = string.ascii_letters + string.digits + " " # из за пробелов иногда тест падает!
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
-testdata = [Group(name="", header="", footer="")] + [
-    Group(name=random_string("name", 10), header=random_string("header", 20), footer=random_string("footer", 20))
+
+testdata = [Contact(firstname="", middlename="", lastname="")] + [
+    Contact(firstname=random_string("firstname", 10), middlename=random_string("middlename", 20), lastname=random_string("lastname", 20))
     for i in range(n)
 ]
 
