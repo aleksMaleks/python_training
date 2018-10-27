@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 from model.group import Group
-import random
-import string
-
+from data.add_group import testdata # constant as testdata # см урок 6_3_ddt.mp4
 
 # def is_alert_present(wd): # пример взят из урока
 #     try:
@@ -11,24 +9,6 @@ import string
 #         return True
 #     except:
 #         return False
-
-def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + " " # *10 убрал генерацию лишних пробелов так как с ними некоторые тесты падают, а еще не создается группа со знаком ' (string.punctuation + )
-    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
-
-# первый вариант
-testdata = [Group(name="", header="", footer="")] + [
-    Group(name=random_string("name", 10), header=random_string("header", 20), footer=random_string("footer", 20))
-    for i in range(2)
-]
-
-# второй вариант
-# testdata = [
-#     Group(name=name, header=header, footer=footer)
-#     for name in ["", random_string("name", 10)]
-#     for header in ["", random_string("header", 20)]
-#     for footer in ["", random_string("footer", 20)]
-# ]
 
 
 @pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
