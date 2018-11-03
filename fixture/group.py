@@ -45,6 +45,10 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
+    def select_group_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
     def delete_first_group(self):
         self.delete_group_by_index(0)
 
@@ -56,6 +60,16 @@ class GroupHelper:
         wd.find_element_by_name("delete").click()
         self.return_to_groups_page()
 #        self.return_to_home()
+        self.group_cashe = None
+
+    def delete_group_by_id(self, id):
+        wd = self.app.wd
+        self.open_groups_page()
+        self.select_group_by_id(id)
+        # submit deletion
+        wd.find_element_by_name("delete").click()
+        self.return_to_groups_page()
+        #        self.return_to_home()
         self.group_cashe = None
 
     def modify_first_group(self):
@@ -75,8 +89,21 @@ class GroupHelper:
 #        self.return_to_home()
         self.group_cashe = None
 
+    def modify_group_by_id(self, id, new_group_data):
+        wd = self.app.wd
+        self.open_groups_page()
+        self.select_group_by_id(id)
+        # open modification form
+        wd.find_element_by_name("edit").click()
+        # fill group form
+        self.fill_group_form(new_group_data)
+        # submit modification
+        wd.find_element_by_name("update").click()
+        self.return_to_groups_page()
+        #        self.return_to_home()
+        self.group_cashe = None
 
-#     def modification_first_group(self, new_group_data): # my test!!!
+    #     def modification_first_group(self, new_group_data): # my test!!!
 #         wd = self.app.wd
 #         self.open_groups_page()
 #         self.select_first_group()

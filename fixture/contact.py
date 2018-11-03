@@ -46,6 +46,18 @@ class ContactHelper:
         self.contact_cashe = None
 
 
+    def modify_contact_by_id(self, id, new_contact_data):
+        wd = self.app.wd
+        self.return_to_home()
+        # init contact modification
+        wd.find_element_by_xpath("//a[contains(@href,'%s')]/img[@title='Edit']" % id).click()
+        # fill contact form
+        self.fill_contact_form(new_contact_data)
+        wd.find_element_by_name("update").click()
+        self.return_to_home_page()
+        self.contact_cashe = None
+
+
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
 
@@ -58,6 +70,18 @@ class ContactHelper:
         wd.find_element_by_css_selector("input[value=Delete]").click()
         wd.switch_to_alert().accept()
 #        wd.get("http://localhost/addressbook/index.php")
+        self.contact_cashe = None
+
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.return_to_home()
+        #  select first contact
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+#        wd.find_element_by_css_selector("input[value='" + id + "']").click() # можно и так
+        # submit deletion
+        wd.find_element_by_css_selector("input[value=Delete]").click()
+        wd.switch_to_alert().accept()
+        #        wd.get("http://localhost/addressbook/index.php")
         self.contact_cashe = None
 
     def return_to_home_page(self): # этот переход проверять не нужно, так как он должен всегда выполняться иначе сайт работает не верно
