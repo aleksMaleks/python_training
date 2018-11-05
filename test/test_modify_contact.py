@@ -3,7 +3,7 @@ from model.contact import Contact
 
 
 #@pytest.mark.skip(reason="no way of currently testing this") # это нужно для отключение теста
-def test_modify_contact_name(app, db):
+def test_modify_contact_name(app, db, check_ui):
     if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="test7777"))
     old_contacts = db.get_contact_list()
@@ -16,6 +16,8 @@ def test_modify_contact_name(app, db):
     old_contacts.remove(random_contact)
     old_contacts.append(contact)
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+    if check_ui:
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
 
 
 # def test_modify_contact_header(app):

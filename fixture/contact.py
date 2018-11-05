@@ -50,6 +50,7 @@ class ContactHelper:
         wd = self.app.wd
         self.return_to_home()
         # init contact modification
+        #wd.find_element_by_xpath('//a[@href="view.php?id=%s"]' % id).click()
         wd.find_element_by_xpath("//a[contains(@href,'%s')]/img[@title='Edit']" % id).click()
         # fill contact form
         self.fill_contact_form(new_contact_data)
