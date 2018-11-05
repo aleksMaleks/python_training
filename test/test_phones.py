@@ -1,8 +1,6 @@
 import re
 from random import randrange
-
 import pytest
-
 from model.contact import Contact
 
 
@@ -20,6 +18,7 @@ def test_random_contact_data_on_home_page_and_on_edit_page(app):
     assert contact_from_home_page.all_emails_from_home_page == merge_emails_like_on_home_page(contact_from_edit_page)
 
 
+@pytest.mark.skip(reason="no way of currently testing this") # для отключение теста
 def test_phones_on_home_page(app):
     contact_from_home_page = app.contact.get_contact_list()[0]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(0)
