@@ -82,7 +82,7 @@ class ContactHelper:
         # submit deletion
         wd.find_element_by_css_selector("input[value=Delete]").click()
         wd.switch_to_alert().accept()
-        #        wd.get("http://localhost/addressbook/index.php")
+        wd.get("http://localhost/addressbook/index.php")
         self.contact_cashe = None
 
     def return_to_home_page(self): # этот переход проверять не нужно, так как он должен всегда выполняться иначе сайт работает не верно
