@@ -1,4 +1,4 @@
-# pythonProject
+# python_training
 
 ### Локальный запуск тестов
 
